@@ -12,6 +12,7 @@
     </script>
     <script src="filters/customFilters.js"></script>
     <script src="controllers/sportsStoreCtrl.js"></script>
+    <script src="controllers/productListCtrl.js"></script>
 </head>
 <body ng-controller="sportsStoreCtrl">
     <div class="container-fluid">
@@ -20,29 +21,10 @@
                 SPORTS STORE
             </a>
         </div>
-        <div class="panel panel-default row">
-            <div class="col-3">
-                <a class="btn btn-block btn-default btn-lg"
-                   ng-click="selectCategory()">
-                    Home
-                </a>
-                <a class="btn btn-block btn-default btn-lg"
-                   ng-repeat="item in products|unique: 'category'|orderBy: 'toString()'"
-                   ng-click="selectCategory(item)">
-                    {{ item }}
-                </a>
-            </div>
-            <div class="col-8">
-                <div class="well" ng-repeat="item in products">
-                    <h3>
-                        <strong>{{ item.name }}</strong>
-                    </h3>
-                    <span class="pull-right label label-primary">
-                        {{ item.price | currency }}
-                    </span>
-                    <span class="lead"> {{ item.description }}</span>
-                </div>
-            </div>
+        <div class="alert alert-danger" ng-show="error">
+            Error {{ error.status }}. The product data was not loaded.
+            <a href="/" class="alert-link">Click here to try again</a>
         </div>
+        <ng-include src="'views/productList.html'"></ng-include>
     </div>
 </body>
