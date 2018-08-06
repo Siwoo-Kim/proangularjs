@@ -1,0 +1,42 @@
+<style>
+    .ng-valid.ng-touched {
+        background-color: lightblue;
+    }
+    .ng-invalid.ng-touched {
+        background-color: lightpink;
+    }
+</style>
+
+<div class="well" ng-controller="adminCtrl">
+    <div class="alert alert-info" ng-hide="authError">
+        Enter your username and password and click Log in to authenticate
+    </div>
+    <div class="alert alert-danger" ng-show="authError">
+        Authentication Failed {{ authError.status }}. Try again.
+    </div>
+    <form name="ngForm" novalidate>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text"
+                   class="form-control"
+                   name="username"
+                   ng-model="username"
+                   required>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password"
+                   class="form-control"
+                   name="password"
+                   ng-model="password"
+                   required>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary"
+                    ng-disabled="ngForm.$invalid"
+                    ng-click="login(username, password)">
+                Log in
+            </button>
+        </div>
+    </form>
+</div>

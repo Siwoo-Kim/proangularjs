@@ -1,0 +1,45 @@
+<!--
+    * @author SiWoo Kim, 
+    * @email sm123tt@gmail.com
+    * @version 1.0.0
+    * @since 2018-08-06 오전 8:59
+    * @github : https://github.com/Siwoo-Kim
+-->
+
+<div ng-controller="ordersCtrl">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Value</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="_order in orders">
+            <td>{{ _order.name }}</td>
+            <td>{{ _order.city }}</td>
+            <td>{{ getTotal(_order)| currency}}</td>
+            <td>
+                <button ng-click="selectOrder(_order)" class="btn btn-xs btn-primary">
+                    Details
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <div ng-show="order">
+        <h3>Order Details</h3>
+
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Count</th>
+                <th>Price</th>
+            </tr>
+            <tr ng-repeat="_product in order.products">
+                <td> {{ _product.name }}</td>
+                <td> {{ _product.count }}</td>
+                <td> {{ _product.price| currency }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

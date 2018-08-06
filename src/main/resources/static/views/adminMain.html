@@ -1,0 +1,23 @@
+<!--
+    * @author SiWoo Kim, 
+    * @email sm123tt@gmail.com
+    * @version 1.0.0
+    * @since 2018-08-06 오전 9:20
+    * @github : https://github.com/Siwoo-Kim
+-->
+
+<div class="well" ng-controller="adminMainCtrl">
+    <div class="panel panel-default row">
+        <div class="col-xs-3 panel-body">
+            <a class="btn btn-block btn-default"
+               ng-repeat="_screen in screens"
+               ng-click="setScreen($index)"
+               ng-class="{'btn-primary': _screen === screen}">
+                {{ _screen }}
+            </a>
+        </div>
+        <div class="col-xs-8 panel-body">
+            <ng-include src="getScreen()" ></ng-include>
+        </div>
+    </div>
+</div>

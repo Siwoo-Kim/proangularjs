@@ -10,44 +10,42 @@ angular.module("customFilters", [])
     .filter("unique", function () {
         return function (data, propertyName) {
             if(angular.isArray(data) && angular.isString(propertyName)) {
-                let results = [];
+                let result = [];
                 let keys = {};
-                for(let i=0; i<data.length; i++) {
-                    let value = data[i][propertyName];
+                angular.forEach(data, function (el) {
+                    let value = el[propertyName];
                     if(angular.isUndefined(keys[value])) {
                         keys[value] = true;
-                        results.push(value);
+                        result.push(value);
                     }
-                }
-                return results;
-            } else {
-                return data;
+                });
+                return result;
             }
+            return data;
         }
     })
     .filter("range", function ($filter) {
-        return function (data, page, size) {
-            if(angular.isArray(data) && angular.isNumber(page) && angular.isNumber(size)) {
-                let start_index = (page - 1) * size;
-                if(data.length-1 <= start_index) {
+        return function (data, page, pageSize) {
+            if(angular.isArray(data) && angular.isNumber(page) && angular.isNumber(pageSize)) {
+                let start_index = (page - 1) * pageSize;
+                if(start_index < data.length) {
+                    return $filter("limitTo")(data.splice(start_index), pageSize);
+                } else {
                     return [];
                 }
-                return $filter("limitTo")(data.splice(start_index), size);
-            } else {
-                return data;
             }
+            return data;
         }
     })
     .filter("pageCount", function () {
-        return function (data, size) {
-            if(angular.isArray(data) && angular.isNumber(size)) {
+        return function (data, pageSize) {
+            if(angular.isArray(data) && angular.isNumber(pageSize)) {
                 let results = [];
-                for(let i=0; i<Math.ceil(data.length/size); i++) {
+                for(let i=0;i<Math.ceil(data.length/pageSize);i++) {
                     results.push(i);
                 }
                 return results;
-            } else {
-                return data;
             }
+            return data;
         }
     });

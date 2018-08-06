@@ -1,8 +1,6 @@
 package com.proangularjs.swangularjs.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * @author SiWoo Kim,
@@ -12,14 +10,20 @@ import lombok.ToString;
  * @since 2018-08-01 오전 8:07
  **/
 @Getter @Setter @ToString
+@EqualsAndHashCode(of = {"id", "name"})
+@NoArgsConstructor
 public class Product {
 
+    public enum Category {
+        Soccer, Chess, WaterSports
+    }
+    private Long id;
     private String name;
     private String description;
     private double price;
-    private String category;
+    private Category category;
 
-    public Product(String name, String description, double price, String category) {
+    public Product(String name, String description, Category category, double price) {
         this.name = name;
         this.description = description;
         this.price = price;

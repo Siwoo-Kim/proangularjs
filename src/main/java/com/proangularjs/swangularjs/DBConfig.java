@@ -29,10 +29,10 @@ public class DBConfig {
                 .build();
     }
 
-    @Bean
-    ProductRepository productRepository() {
-        return new SimpleProductRepository();
-    }
+//    @Bean
+//    ProductRepository productRepository() {
+//        return new SimpleProductRepository();
+//    }
 
     @Bean
     ProductController productController() {
