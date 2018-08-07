@@ -1,0 +1,46 @@
+<!--
+    * @author SiWoo Kim, 
+    * @email sm123tt@gmail.com
+    * @version 1.0.0
+    * @since 2018-08-07 오전 7:44
+    * @github : https://github.com/Siwoo-Kim
+-->
+
+<!DOCTYPE HTML>
+<html ng-app="moduleApp">
+<head>
+    <title>Learning Module</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="ngmodules/angular.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <script>
+        angular.module("moduleApp", [
+            "moduleApp.Controllers",
+            "moduleApp.Filters",
+            "moduleApp.Services"
+        ])
+            .constant("startTime", new Date().toLocaleTimeString())
+            .config((startTime) => console.log("Main module config: " + startTime))
+            .run((startTime) => console.log("Main module run: " + startTime));
+
+    </script>
+    <script src="controllers/module/dayCtrl.js"></script>
+    <script src="components/module/highlight.js"></script>
+    <script src="components/module/dayService.js"></script>
+    <script src="filters/module/dayFilter.js"></script>
+</head>
+<body>
+    <div class="panel text-center">
+        <div class="panel-header">
+            <h2>AngularJS Application</h2>
+        </div>
+        <h3 ng-controller="dayCtrl" highlight="Tuesday">
+            Today is {{ day || ("unknown")| dayName }}
+        </h3>
+        <h3 ng-controller="tomorrowCtrl">
+            Tomorrow is {{ day || ("unknown")| dayName }}
+        </h3>
+    </div>
+</body>
+</html>
