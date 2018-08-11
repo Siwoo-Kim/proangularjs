@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html ng-app="directiveApp">
+<head>
+    <title>Directives2</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="ngmodules/angular.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .odd {
+            background-color: lightcoral;
+        }
+        .even {
+            background-color: lavenderblush;
+        }
+    </style>
+    <script>
+        angular.module("directiveApp", []);
+    </script>
+    <script src="controllers/directiveDefaultCtrl.js" ></script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="panel">
+        <h3 class="panel-header">
+            To Do List
+        </h3>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox"
+                       ng-model="showTable">
+                Show Table
+            </label>
+        </div>
+        <ng-include src="getViews()" onload="reportChange()" ></ng-include>
+    </div>
+</body>
+</html>

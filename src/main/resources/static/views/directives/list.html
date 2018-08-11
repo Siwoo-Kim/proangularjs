@@ -1,0 +1,9 @@
+
+<ol>
+    <li ng-repeat="_todo in todos">
+        {{ _todo.action }}
+        <span ng-if="_todo.complete">
+            ( Done )
+        </span>
+    </li>
+</ol>

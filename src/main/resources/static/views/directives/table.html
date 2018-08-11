@@ -1,0 +1,18 @@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th ng-repeat="_header in ['#', 'Action', 'Done']">
+                {{ _header }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="_todo in todos"
+            ng-class="$odd? 'odd': 'even'">
+            <td ng-repeat="_prop in _todo">
+                {{ _prop }}
+            </td>
+        </tr>
+    </tbody>
+</table>

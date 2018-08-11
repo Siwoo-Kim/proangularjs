@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="directiveApp">
+<head>
+    <title>Directives</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="ngmodules/angular.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .odd {
+            background-color: lightcoral;
+        }
+        .even {
+            background-color: lavenderblush;
+        }
+    </style>
+    <script>
+        angular.module("directiveApp", []);
+    </script>
+    <script src="controllers/directiveDefaultCtrl.js"></script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="panel">
+        <div class="panel-header text-center">
+            <h1>To Do List</h1>
+        </div>
+        <div class="panel-body">
+            <div>There are {{ todos.length }} items.</div>
+            <div>There are <span ng-bind="todos.length"></span> items.</div>
+            <div ng-bind-template="First: {{ todos[0].action }}, Second: {{ todos[1].action}}"></div>
+            <div ng-non-bindable>
+                The {{ and }} characters are used to bind data ( One directional )
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="well">
+                The first item is {{ todos[0].action }}.
+            </div>
+            <div class="form-group well">
+                <label for="firstItem">BiDirectional Databinding</label>
+                <input type="text"
+                       id="firstItem"
+                       name="firstItem"
+                       ng-model="todos[0].action">
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-repeat="_header in ['#', 'Action', 'Done']">
+                        {{ _header }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="_todo in todos"
+                    ng-class="$odd ? 'odd': 'even'">
+                    {{ $index + 1 }}
+                    <td ng-repeat="_prop in _todo">
+                        {{ _prop }}
+                    </td>
+                    <td ng-repeat="(_key, _values) in _todo">
+                        {{_key}}={{_values}}
+                    </td>
+                </tr>
+                <tr ng-repeat="_todo in todos"
+                    ng-class="$odd ? 'odd': 'even'">
+                    <td>{{ _todo.action }}</td>
+                    <td ng-if="$first || $last"> {{ _todo.complete }}</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr ng-repeat-start="_todo in todos">
+                    <td>This is item {{ $index + 1 }}</td>
+                </tr>
+                <tr>
+                   <td>The action is {{ _todo.action }}</td>
+                </tr>
+                <tr ng-repeat-end>
+                    <td>Item {{ $index + 1 }} is {{ _todo.complete? '': 'not' }} complete</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+        <h2>Include table view by NgInclude directive</h2>
+        <ng-include src="'views/directives/table.html'" ></ng-include>
+        <ng-include src="'views/directives/list.html'" ></ng-include>
+    </div>
+
+</body>
+</html>
