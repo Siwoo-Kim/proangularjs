@@ -10,8 +10,18 @@
         td > *:first-child {
             font-weight: bold;
         }
+        .Red {
+            background-color: lightcoral;
+        }
+        .Green {
+            background-color: lightgreen;
+        }
+        .Blue {
+            background-color: lightblue;
+        }
+
     </style>
-    
+
     <script>
         angular.module("builtinDirectiveApp", []);
     </script>
@@ -20,15 +30,38 @@
 <body>
     <div class="panel" ng-controller="defaultCtrl">
         <h3 class="panel-header">To Do List</h3>
-
-        <div class="well check-box">
+        <div class="checkbox well">
             <label>
-                <input type="checkbox"
-                       ng-model="todos[2].complete">
-                Item 3 is complete
+                <input type="checkbox" ng-model="dataValue">
+                Set the data value
             </label>
         </div>
-        <table class="table table-striped">
+        <button class="btn btn-success" ng-disabled="dataValue">Button</button>
+
+        <div class="well" tap="message = 'Tapped!'">
+            {{ message }}
+        </div>
+        <div class="well">
+            <div ng-repeat="_button in buttons"
+                 class="btn btn-primary"
+                 ng-click="settings.rows = _button">
+                {{ _button }}
+            </div>
+        </div>
+        <div class="well row">
+            <div class="col-xs-6" ng-repeat="(key, val) in settings">
+                <h4>{{ key }}</h4>
+                <div class="radio" ng-repeat="_button in buttons">
+                    <label>
+                        <input type="radio"
+                               ng-model="settings[key]"
+                               value="{{_button}}">
+                        {{ _button }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <table class="table">
             <thead>
                 <tr>
                     <th ng-repeat="_header in ['#', 'Action', 'Done']">
@@ -37,16 +70,13 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<tr ng-repeat="_todo in todos" ng-if="!_todo.complete">-->
-                <tr ng-repeat="_todo in todos |filter: { complete: false }">
+                <tr ng-repeat="_todo in todos"
+                    ng-class="settings.rows"
+                    ng-mouseleave="handleEvent($event)"
+                    ng-mouseenter="handleEvent($event)">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ _todo.action }}</td>
-                    <td>
-                        <!--<span ng-hide="_todo.complete">(Incomplete)</span>-->
-                        <!--<span ng-show="_todo.complete">(Done)</span>-->
-                        <span ng-if="!_todo.complete">(Incomplete)</span>
-                        <span ng-if="_todo.complete">Done</span>
-                    </td>
+                    <td ng-class="settings.columns">{{ _todo.complete? "Done": "Incomplete" }}</td>
                 </tr>
             </tbody>
         </table>
