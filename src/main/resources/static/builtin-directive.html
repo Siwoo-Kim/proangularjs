@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="builtinDirectiveApp">
+<head>
+    <title>Directives</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="ngmodules/angular.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        td > *:first-child {
+            font-weight: bold;
+        }
+    </style>
+    
+    <script>
+        angular.module("builtinDirectiveApp", []);
+    </script>
+    <script src="controllers/builtinDirectiveDefaultCtrl.js"></script>
+</head>
+<body>
+    <div class="panel" ng-controller="defaultCtrl">
+        <h3 class="panel-header">To Do List</h3>
+
+        <div class="well check-box">
+            <label>
+                <input type="checkbox"
+                       ng-model="todos[2].complete">
+                Item 3 is complete
+            </label>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th ng-repeat="_header in ['#', 'Action', 'Done']">
+                        {{ _header }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="_todo in todos" ng-if="!_todo.complete">-->
+                <tr ng-repeat="_todo in todos |filter: { complete: false }">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ _todo.action }}</td>
+                    <td>
+                        <!--<span ng-hide="_todo.complete">(Incomplete)</span>-->
+                        <!--<span ng-show="_todo.complete">(Done)</span>-->
+                        <span ng-if="!_todo.complete">(Incomplete)</span>
+                        <span ng-if="_todo.complete">Done</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
